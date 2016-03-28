@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>JQVMap - World Map</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+    <link href="../dist/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../dist/jquery.vmap.js"></script>
+    <script type="text/javascript" src="../dist/maps/jquery.vmap.world.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/jquery.vmap.sampledata.js"></script>
+
+    <script>
+      jQuery(document).ready(function () {
+        jQuery('#vmap').vectorMap({
+          map: 'world_en',
+          backgroundColor: '#ffffff',
+          color: '#ffffff',
+          hoverOpacity: 0.7,
+          selectedColor: 'red',
+          enableZoom: true,
+          showTooltip: true,
+          scaleColors: ['#C8EEFF', '#006491'],
+          values: sample_data,
+          normalizeFunction: 'polynomial',
+          onRegionSelect: function(element, code, region) {
+            console.log(element);
+            //$('#jqvmap1_ca').trigger('mouseenter');
+          },
+
+        });
+
+        function popCountriesColor(country) {
+          var obj = {};
+          for (var i=0; i<country.re.length; i++) {
+            //console.log(crtsList[i]);
+            obj[country.re[i]] = country.co;
+          }
+          return obj;
+        }
+
+        var regions = {
+          ca : {
+            co:'#dbdbdb',
+            re:['ca']
+          },
+          us : {
+            co:'#2928ce',
+            re:['us']
+          },
+          eur : {
+            co:'#9d9dea',
+            re:['gl','is','pt','es','be','it','by','pl','gr','fi','de','se','nz','ua','ie','gb','no','ch','at','cz','sk','hu','lt','lv','md','ro','bg','al','ee','ad','sm','mc','lu','fr','li','nl','ba','si','mk','hr','dk','mt','me','rs']
+          },
+          sa : {
+            co:'#171758',
+            re:['fk','ec','co','ve','gy','sr','gf','pe','bo','py','uy','ar','cl','br']
+          },
+          mx_car : {
+            co:'#c7c7e8',
+            re:['mx','gt','bz','hn','sv','ni','cr','pa','cu','bs','jm','kn','aj','dm','lc','bb','gd','tt','do','ht']
+          },
+          au : {
+            co:'#6666cc',
+            re:['au','pg','sb','bu','vu','nz','nc']
+          },
+          af : {
+            co:'#6666cc',
+            re:['dz','ma','mr','sn','gm','gw','gn','sl','lr','ci','ml','bf','ne','gh','tg','bj','ng','tn','ly','eg','td','sd','cm','er','dj','et','so','cf','gq','ga','cg','ao','cd','rw','bi','ug','ke','tz','zm','mw','mz','zw','na','bw','sz','ls','za','mg']
+          },
+          as : {
+            co:'#332a85',
+            re:['id','ye','my','bn','tl','ph','cn','tw','jp','ru','mv','lk','mn','kp','kr','kz','tm','uz','tj','kg','af','pk','in','np','bt','bd','mm','th','kh','la','vn','ir','tr','om','ae','qa','kw','sa','sy','iq','jo','lb','il','ge','am','az']
+          }
+        }
+
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.ca));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.us));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.eur));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.sa));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.mx_car));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.au));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.af));
+        jQuery('#vmap').vectorMap('set', 'colors', popCountriesColor(regions.as));
+
+        $('#test').on('click', function() {
+          $('#vmap').vectorMap('select', 'ca');
+        });
+
+      });
+    </script>
+  </head>
+  <body>
+    <button id="test">click me</button>
+    <div id="vmap" style="width: 1000px; height: 600px;"></div>
+    <img src="images/map-colors.png"/>
+  </body>
+</html>
